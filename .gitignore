@@ -1,0 +1,95 @@
+**/bin/
+**/obj/
+*.user
+*.suo
+*.cache
+*.tmp
+*.log
+*.pid
+*.seed
+*.pid.lock
+*.db
+*.db-shm
+*.db-wal
+*.sln.docstates
+*.vcxproj.filters
+*.vcxproj.user
+
+# Visual Studio Specific Files
+.vs/
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.~lock*
+TestResults/
+*.coverage
+*.coveragexml
+*.trx
+*.TestResults.xml
+*.publishsettings
+*.pubxml.user
+
+# User Secrets & Configuration
+appsettings.Development.json
+appsettings*.Development.json
+secrets.json
+.env
+*.pfx
+*.p12
+
+# NuGet / Package Management
+packages/
+*.nupkg
+*.snupkg
+**/packages/
+!**/packages/repositories.config
+
+# Docker / Containers
+*.dockerignore
+!**/.dockerignore
+
+# Logs & Static Files
+logs/
+wwwroot/
+*.log
+*.csv
+*.xlsx
+
+# OS Metadata
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE Generated
+*.ncrunch*
+*.suo
+*.userprefs
+*.dbmdl
+*.pdb
+*.mdb
+mono_crash.*
+_ReSharper.*/
+[Rr]eSharper*/
+[Tt]est[Rr]esults/
+*.GhostDoc.xml
+
+# Frontend/Client Assets (if added later)
+node_modules/
+dist/
+*.min.js
+*.min.css
+yarn.lock
+package-lock.json
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# Hangfire / PostgreSQL storage (if using local file or SQLite fallback)
+*.sqlite
+*.sqlite3
+*.mdf
+*.ldf
