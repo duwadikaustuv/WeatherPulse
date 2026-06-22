@@ -1,4 +1,5 @@
 ﻿using Hangfire;
+using Hangfire.PostgreSql;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Polly.Extensions.Http;
@@ -30,9 +31,6 @@ public static class DependencyInjection
 
         // Hangfire (for background jobs)
         services.AddHangfire(config => config
-            .SetDataCompatibilityLevel(Hangfire.Common.CompatibilityLevel.Version_180)
-            .UseSimpleAssemblyNameTypeSerializer()
-            .UseRecommendedSerializerSettings()
             .UsePostgreSqlStorage(configuration.GetConnectionString("HangfireDB")));
         services.AddHangfireServer();
 
