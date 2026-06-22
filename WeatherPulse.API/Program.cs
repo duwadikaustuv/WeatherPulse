@@ -1,13 +1,14 @@
 using Hangfire;
+using Hangfire.Dashboard.BasicAuthorization;
 using Serilog;
 using WeatherPulse.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Serilog
+// Serilog (Structured logging)
 builder.Host.UseSerilog((ctx, lc) => lc
     .WriteTo.Console()
-    .Enrich.WithCorrelationId()
+    .Enrich.FromLogContext()
     .ReadFrom.Configuration(ctx.Configuration));
 
 // Add Controllers + Swagger
@@ -28,10 +29,33 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseAuthorization();
-app.MapControllers();
 
-// Hangfire Dashboard
-app.UseHangfireDashboard("/hangfire");
+app.UseRouting();
+
+app.UseAuthorization();
+
+// Hangfire Dashboard with Basic Authentication
+app.UseHangfireDashboard("/hangfire", new DashboardOptions
+{
+    Authorization = new[]
+    {
+        new BasicAuthAuthorizationFilter(new BasicAuthAuthorizationFilterOptions
+        {
+            RequireSsl = false,
+            SslRedirect = false,
+            LoginCaseSensitive = true,
+            Users = new []
+            {
+                new BasicAuthAuthorizationUser
+                {
+                    Login = "admin",
+                    PasswordClear = "password123"
+                }
+            }
+        })
+    }
+});
+
+app.MapControllers();
 
 app.Run();
