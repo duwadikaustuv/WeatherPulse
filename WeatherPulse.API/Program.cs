@@ -11,6 +11,17 @@ builder.Host.UseSerilog((ctx, lc) => lc
     .Enrich.FromLogContext()
     .ReadFrom.Configuration(ctx.Configuration));
 
+// CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000")
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 // Add Controllers + Swagger
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -32,6 +43,11 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
+app.UseAuthorization();
+
+// 6. Use CORS
+app.UseRouting();
+app.UseCors("AllowFrontend");
 app.UseAuthorization();
 
 // Hangfire Dashboard with Basic Authentication
